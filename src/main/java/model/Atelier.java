@@ -8,8 +8,8 @@ package model;
  *
  * @author emili
  */
-import fr.baptiste.emilien.projet.info.Operateur;
-import fr.baptiste.emilien.projet.info.Poste;
+import model.Operateur;
+import model.Poste;
 import java.util.ArrayList;
 
 public class Atelier {
