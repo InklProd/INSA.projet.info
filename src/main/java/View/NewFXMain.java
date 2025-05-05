@@ -6,12 +6,12 @@ package View;
  */
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -21,31 +21,31 @@ public class NewFXMain extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
+        // --- ÉCRAN TITRE ---
+        Text titre = new Text("Bienvenue dans mon application !");
+        Button boutonCommencer = new Button("Commencer");
+
+        VBox ecranTitreLayout = new VBox(20, titre, boutonCommencer);
+        ecranTitreLayout.setStyle("-fx-alignment: center; -fx-padding: 50;");
+        Scene sceneTitre = new Scene(ecranTitreLayout, 400, 300);
+
+        // --- ÉCRAN PRINCIPAL ---
+        Text contenuPrincipal = new Text("Voici l'écran principal.");
+        StackPane ecranPrincipalLayout = new StackPane(contenuPrincipal);
+        Scene scenePrincipale = new Scene(ecranPrincipalLayout, 400, 300);
+
+        // Changer de scène au clic sur le bouton
+        boutonCommencer.setOnAction(e -> {
+            primaryStage.setScene(scenePrincipale);
         });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
+
+        // Configuration de la fenêtre
+        primaryStage.setTitle("Mon Application JavaFX");
+        primaryStage.setScene(sceneTitre);
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
