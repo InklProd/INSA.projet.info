@@ -5,4 +5,5 @@ module insa.projet.info.mavenproject1 {
     exports insa.baptiste.insa.projet.info;
     exports controlleur;
     exports view;
+    exports model;
 }
