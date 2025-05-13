@@ -1,6 +1,8 @@
 package controlleur;
 
+import javafx.application.Application;
 import javafx.scene.control.Label;
+import view.AtelierView;
 
 public class AccueilController {
 
@@ -12,6 +14,6 @@ public class AccueilController {
 
     public void handleButtonClick() {
         System.out.println("Bouton cliqué !");
-        messageLabel.setText("Bon travail !");
+        
     }
 }
