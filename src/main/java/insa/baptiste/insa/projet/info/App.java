@@ -1,6 +1,5 @@
 package insa.baptiste.insa.projet.info;
 
-
 import javafx.application.Application;
 import view.AccueilView;
 

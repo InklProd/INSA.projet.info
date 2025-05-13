@@ -49,7 +49,6 @@ public class Atelier {
         }
     }
 
-    // Getters utiles si nécessaire
     public ArrayList<Poste> getListePostes() {
         return listePostes;
     }
