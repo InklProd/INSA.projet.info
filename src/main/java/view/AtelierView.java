@@ -22,13 +22,17 @@ public class AtelierView extends Application {
         zoneAffichage.setEditable(false);
         zoneAffichage.setPrefHeight(150);
         
-        controlleur.BoutonPosteController boutonPoste = new BoutonPosteController(Atelier, zoneAffichage);
-        controlleur.BoutonOperateurController boutonOperateur = new BoutonOperateurController(Atelier, zoneAffichage);
+        VBox zoneActions = new VBox(10);
+        zoneActions.setStyle("-fx-padding: 10;");
+        
+        controlleur.BoutonPosteController boutonPoste = new BoutonPosteController(Atelier, zoneAffichage, zoneAction);
+        controlleur.BoutonOperateurController boutonOperateur = new BoutonOperateurController(Atelier, zoneAffichage, zoneAction);
 
         VBox layout = new VBox(15,
                 boutonPoste.getButton(),
                 boutonOperateur.getButton(),
-                zoneAffichage
+                zoneAffichage,
+                zoneAction
         );
         layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
