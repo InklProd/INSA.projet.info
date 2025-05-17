@@ -2,45 +2,52 @@ package view;
 
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
-import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Atelier;
 
-public class AtelierView extends Application {
-    public Atelier atelier;
-    
-    public void start(Stage stage) {
-        Label label = new Label("Bienvenue dans l'atelier !");    
+public class AtelierView {
+    public Parent getView() {
+        Atelier atelier = new Atelier();
+
+        Label label = new Label("Bienvenue dans l'atelier !");
         TextArea zoneAffichage = new TextArea();
         zoneAffichage.setEditable(false);
         zoneAffichage.setPrefHeight(150);
-        
-        /*VBox zoneActions = new VBox(10);
-        zoneActions.setStyle("-fx-padding: 10;");*/
-        
-        controlleur.BoutonPosteController boutonPoste = new BoutonPosteController(atelier, zoneAffichage/*, *zoneAction*/);
-        controlleur.BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, zoneAffichage/*, zoneAction*/);
 
-        HBox layout = new HBox(200,
-                boutonPoste.getButton(),
-                boutonOperateur.getButton(),
-                zoneAffichage
-                //,zoneAction
+        HBox zoneActions = new HBox(10); // Pour les boutons dynamiques
+        zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
+
+        BoutonPosteController boutonPoste = null;
+        BoutonOperateurController boutonOperateur = null;
+        try {
+            boutonPoste = new BoutonPosteController(atelier, zoneAffichage, zoneActions);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            boutonOperateur = new BoutonOperateurController(atelier, zoneAffichage, zoneActions);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        HBox boutonsHaut = new HBox(10,
+                boutonPoste != null ? boutonPoste.getButton() : new Label("Erreur bouton poste"),
+                boutonOperateur != null ? boutonOperateur.getButton() : new Label("Erreur bouton opérateur")
         );
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        
-        VBox vbox = new VBox(label, layout, zoneAffichage);
-        vbox.setSpacing(10);
-        vbox.setStyle("-fx-padding: 500; -fx-alignment: center;");
-        
-        Scene scene = new Scene(vbox, 500, 500);
-        stage.setTitle("Atelier");
-        stage.setScene(scene);
-        stage.show();
+        boutonsHaut.setStyle("-fx-alignment: center;");
+
+        VBox vbox = new VBox(10,
+                label,
+                boutonsHaut,
+                zoneAffichage,
+                zoneActions
+        );
+        vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
+
+        return vbox;
     }
 }

@@ -10,9 +10,8 @@ import javafx.stage.Stage;
 public class AccueilView extends Application {
 
     public void start(Stage primaryStage) {
-        
-        Label messageLabel = new Label("prêt a gerer l'atelier ?");
-        
+        Label messageLabel = new Label("Prêt à gérer l'atelier ?");
+
         OuvertureAtelier controller = new OuvertureAtelier();
 
         VBox layout = new VBox(20);
