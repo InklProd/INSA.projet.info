@@ -4,12 +4,6 @@
  */
 package model;
 
-/**
- *
- * @author emili
- */
-import model.Operateur;
-import model.Poste;
 import java.util.ArrayList;
 
 public class Atelier {
