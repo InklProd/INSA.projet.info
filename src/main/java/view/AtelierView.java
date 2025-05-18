@@ -21,18 +21,12 @@ public class AtelierView {
         HBox zoneActions = new HBox(10); // Pour les boutons dynamiques
         zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
 
-        BoutonPosteController boutonPoste = null;
-        BoutonOperateurController boutonOperateur = null;
-        try {
-            boutonPoste = new BoutonPosteController(atelier, zoneAffichage, zoneActions);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        try {
-            boutonOperateur = new BoutonOperateurController(atelier, zoneAffichage, zoneActions);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+
+        BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, zoneAffichage, zoneActions);
+        BoutonPosteController boutonPoste = new BoutonPosteController(atelier, zoneAffichage, zoneActions);
+
+        boutonOperateur.setBoutonPoste(boutonPoste.getButton());
+        boutonPoste.setBoutonOperateur(boutonOperateur.getButton());
 
         HBox boutonsHaut = new HBox(10,
                 boutonPoste != null ? boutonPoste.getButton() : new Label("Erreur bouton poste"),

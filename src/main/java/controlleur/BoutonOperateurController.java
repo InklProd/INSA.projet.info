@@ -10,6 +10,7 @@ public class BoutonOperateurController {
     private final Button bouton;
     private Operateur operateur;
     private boolean actionsAjoutees = false;
+    private Button boutonPoste; // Ajoute cette ligne
 
     public BoutonOperateurController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) { // Modifié ici
         bouton = new Button("Afficher les opérateurs");
@@ -18,6 +19,9 @@ public class BoutonOperateurController {
             StringBuilder sb = new StringBuilder("Opérateurs disponibles :\n");
             atelier.getListeOperateurs().forEach(o -> sb.append("- ").append(o).append("\n"));
             zoneAffichage.setText(sb.toString());
+
+            zoneAction.getChildren().clear();
+            actionsAjoutees = false;
 
             if (!actionsAjoutees) {
                 Button action1 = new Button("créer opérateur");
@@ -30,11 +34,16 @@ public class BoutonOperateurController {
                 actionsAjoutees = true;
 
                 bouton.setDisable(true);
+                if (boutonPoste != null) boutonPoste.setDisable(false); // Active l'autre bouton
             }
         });
     }
 
     public Button getButton() {
         return bouton;
+    }
+
+    public void setBoutonPoste(Button boutonPoste) {
+        this.boutonPoste = boutonPoste;
     }
 }

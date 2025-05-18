@@ -10,6 +10,7 @@ public class BoutonPosteController {
     private final Button bouton;
     private Poste poste;
     private boolean actionsAjoutees = false;
+    private Button boutonOperateur; // Ajoute cette ligne
 
     public BoutonPosteController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) { // Modifié ici
         bouton = new Button("Afficher les postes");
@@ -19,6 +20,9 @@ public class BoutonPosteController {
             atelier.getListePostes().forEach(p -> sb.append("- ").append(p).append("\n"));
             zoneAffichage.setText(sb.toString());
             
+            zoneAction.getChildren().clear();
+            actionsAjoutees = false;
+
             if (!actionsAjoutees) {
                 Button action1 = new Button("creer poste");
                 Button action2 = new Button("suprimer poste");
@@ -30,11 +34,16 @@ public class BoutonPosteController {
                 actionsAjoutees = true;
 
                 bouton.setDisable(true);
+                if (boutonOperateur != null) boutonOperateur.setDisable(false); // Active l'autre bouton
             }
         });
     }
 
     public Button getButton() {
         return bouton;
+    }
+
+    public void setBoutonOperateur(Button boutonOperateur) {
+        this.boutonOperateur = boutonOperateur;
     }
 }
