@@ -12,7 +12,11 @@ import model.Poste;
 import java.util.function.Consumer;
 
 public class CreerPosteView extends Stage {
+    private final Consumer<Poste> onPosteCree;
+
     public CreerPosteView(Consumer<Poste> onPosteCree) {
+        this.onPosteCree = onPosteCree;
+
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10));
 
@@ -31,7 +35,9 @@ public class CreerPosteView extends Stage {
             String desc = descField.getText();
             if (!ref.isEmpty() && !desc.isEmpty()) {
                 Poste nouveauPoste = new Poste(ref, desc);
-                onPosteCree.accept(nouveauPoste);
+                if (onPosteCree != null) {
+                    onPosteCree.accept(nouveauPoste);
+                }
                 this.close();
             }
         });

@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import model.Atelier;
 import model.Poste;
 import view.CreerPosteView;
+import view.SupprimerPosteView; // Ajoute cet import
 
 public class BoutonPosteController {
     private final Button bouton;
@@ -35,8 +36,14 @@ public class BoutonPosteController {
                 });
 
                 action2.setOnAction(ev -> {
-                    atelier.retirerPoste(poste);
-                    afficherPostes(atelier, zoneAffichage);
+                    SupprimerPosteView fenetreSuppr = new SupprimerPosteView(
+                        atelier.getListePostes(),
+                        posteASupprimer -> {
+                            atelier.retirerPoste(posteASupprimer);
+                            afficherPostes(atelier, zoneAffichage);
+                        }
+                    );
+                    fenetreSuppr.show();
                 });
 
                 zoneAction.getChildren().addAll(action1, action2);
