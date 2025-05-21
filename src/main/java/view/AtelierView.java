@@ -18,9 +18,8 @@ public class AtelierView {
         zoneAffichage.setEditable(false);
         zoneAffichage.setPrefHeight(150);
 
-        HBox zoneActions = new HBox(10); // Pour les boutons dynamiques
+        HBox zoneActions = new HBox(10);
         zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
-
 
         BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, zoneAffichage, zoneActions);
         BoutonPosteController boutonPoste = new BoutonPosteController(atelier, zoneAffichage, zoneActions);

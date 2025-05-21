@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author emili
- */
 public class Operateur {
     private String code;
     private String nom;
@@ -40,5 +32,7 @@ public class Operateur {
         return !estOccupe;
     }
 
-    
+    public String toString() {
+        return code + " - " + nom + " " + prenom;
+    }
 }
