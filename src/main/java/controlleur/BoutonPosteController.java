@@ -58,7 +58,11 @@ public class BoutonPosteController {
     // Nouvelle méthode utilitaire pour afficher les postes
     private void afficherPostes(Atelier atelier, TextArea zoneAffichage) {
         StringBuilder sb = new StringBuilder("Postes disponibles :\n");
-        atelier.getListePostes().forEach(p -> sb.append("- ").append(p).append("\n"));
+        if (atelier.getListePostes().isEmpty()) {
+            sb.append("Aucun poste.\n");
+        } else {
+            atelier.getListePostes().forEach(p -> sb.append("- ").append(p.toString()).append("\n"));
+        }
         zoneAffichage.setText(sb.toString());
     }
 

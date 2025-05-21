@@ -46,5 +46,10 @@ public class Poste {
     public ArrayList<Machine> getListeMachines() {
         return listeMachines;
     }
+
+    @Override
+    public String toString() {
+        return "Réf: " + refPoste + ", Description: " + dPoste;
+    }
 }
 
