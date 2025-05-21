@@ -40,5 +40,5 @@ public class Operateur {
         return !estOccupe;
     }
 
-    // Getters & setters possibles
+    
 }
