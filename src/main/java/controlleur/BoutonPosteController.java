@@ -6,13 +6,13 @@ import javafx.scene.layout.HBox;
 import model.Atelier;
 import model.Poste;
 import view.CreerPosteView;
-import view.SupprimerPosteView; // Ajoute cet import
+import view.SupprimerPosteView; 
 
 public class BoutonPosteController {
     private final Button bouton;
     private Poste poste;
     private boolean actionsAjoutees = false;
-    private Button boutonOperateur; // Ajoute cette ligne
+    private Button boutonOperateur; 
 
     public BoutonPosteController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) {
         bouton = new Button("Afficher les postes");
@@ -30,7 +30,7 @@ public class BoutonPosteController {
                 action1.setOnAction(ev -> {
                     CreerPosteView fenetre = new CreerPosteView(posteCree -> {
                         atelier.ajouterPoste(posteCree);
-                        afficherPostes(atelier, zoneAffichage); // <-- Rafraîchit aussi ici si besoin
+                        afficherPostes(atelier, zoneAffichage); 
                     });
                     fenetre.show();
                 });
@@ -55,7 +55,6 @@ public class BoutonPosteController {
         });
     }
 
-    // Nouvelle méthode utilitaire pour afficher les postes
     private void afficherPostes(Atelier atelier, TextArea zoneAffichage) {
         StringBuilder sb = new StringBuilder("Postes disponibles :\n");
         if (atelier.getListePostes().isEmpty()) {

@@ -48,8 +48,8 @@ public class Gamme {
     public float coutGamme() {
         float total = 0;
         for (Operation op : listeOperations) {
-            // Coût fictif: tu pourrais ajouter une map refEquipement → Machine pour récupérer le coût
-            total += op.getDureeOperation() * 50; // À remplacer par un vrai lien vers Machine
+           
+            total += op.getDureeOperation() * 50; 
         }
         return total;
     }

@@ -31,5 +31,5 @@ public class Produit {
         this.dProduit = null;
     }
 
-    // Getters et setters possibles
+    
 }

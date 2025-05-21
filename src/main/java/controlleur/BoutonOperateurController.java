@@ -10,9 +10,9 @@ public class BoutonOperateurController {
     private final Button bouton;
     private Operateur operateur;
     private boolean actionsAjoutees = false;
-    private Button boutonPoste; // Ajoute cette ligne
+    private Button boutonPoste; 
 
-    public BoutonOperateurController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) { // Modifié ici
+    public BoutonOperateurController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) { 
         bouton = new Button("Afficher les opérateurs");
 
         bouton.setOnAction(e -> {
@@ -34,7 +34,7 @@ public class BoutonOperateurController {
                 actionsAjoutees = true;
 
                 bouton.setDisable(true);
-                if (boutonPoste != null) boutonPoste.setDisable(false); // Active l'autre bouton
+                if (boutonPoste != null) boutonPoste.setDisable(false); 
             }
         });
     }

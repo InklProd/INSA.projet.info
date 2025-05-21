@@ -51,7 +51,6 @@ public class Machine {
         return cout;
     }
 
-    // Getters et setters possibles
     private float tempsMarche = 0f;
     private float tempsObservation = 0f;
 
