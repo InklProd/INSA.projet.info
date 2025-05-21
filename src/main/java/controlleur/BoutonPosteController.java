@@ -1,24 +1,27 @@
 package controlleur;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import model.Atelier;
-import model.Poste;
 import view.CreerPosteView;
-import view.SupprimerPosteView; 
+import view.SupprimerPosteView;
 
 public class BoutonPosteController {
     private final Button bouton;
-    private Poste poste;
     private boolean actionsAjoutees = false;
-    private Button boutonOperateur; 
+    private Button boutonOperateur;
+    private final ListView<Object> listView;
+    private final Atelier atelier;
 
-    public BoutonPosteController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) {
+    public BoutonPosteController(Atelier atelier, ListView<Object> listView, HBox zoneAction) {
+        this.atelier = atelier;
+        this.listView = listView;
         bouton = new Button("Afficher les postes");
 
         bouton.setOnAction(e -> {
-            afficherPostes(atelier, zoneAffichage);
+            afficherPostes();
 
             zoneAction.getChildren().clear();
             actionsAjoutees = false;
@@ -30,7 +33,7 @@ public class BoutonPosteController {
                 action1.setOnAction(ev -> {
                     CreerPosteView fenetre = new CreerPosteView(posteCree -> {
                         atelier.ajouterPoste(posteCree);
-                        afficherPostes(atelier, zoneAffichage); 
+                        afficherPostes();
                     });
                     fenetre.show();
                 });
@@ -40,7 +43,7 @@ public class BoutonPosteController {
                         atelier.getListePostes(),
                         posteASupprimer -> {
                             atelier.retirerPoste(posteASupprimer);
-                            afficherPostes(atelier, zoneAffichage);
+                            afficherPostes();
                         }
                     );
                     fenetreSuppr.show();
@@ -55,14 +58,8 @@ public class BoutonPosteController {
         });
     }
 
-    private void afficherPostes(Atelier atelier, TextArea zoneAffichage) {
-        StringBuilder sb = new StringBuilder("Postes disponibles :\n");
-        if (atelier.getListePostes().isEmpty()) {
-            sb.append("Aucun poste.\n");
-        } else {
-            atelier.getListePostes().forEach(p -> sb.append("- ").append(p.toString()).append("\n"));
-        }
-        zoneAffichage.setText(sb.toString());
+    private void afficherPostes() {
+        listView.setItems(FXCollections.observableArrayList(atelier.getListePostes()));
     }
 
     public Button getButton() {

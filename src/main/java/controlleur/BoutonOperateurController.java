@@ -1,7 +1,8 @@
 package controlleur;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import model.Atelier;
 import model.Operateur;
@@ -10,15 +11,18 @@ import view.SupprimerOperateurView;
 
 public class BoutonOperateurController {
     private final Button bouton;
-    private Operateur operateur;
     private boolean actionsAjoutees = false;
-    private Button boutonPoste; 
+    private Button boutonPoste;
+    private final ListView<Object> listView;
+    private final Atelier atelier;
 
-    public BoutonOperateurController(Atelier atelier, TextArea zoneAffichage, HBox zoneAction) { 
+    public BoutonOperateurController(Atelier atelier, ListView<Object> listView, HBox zoneAction) {
+        this.atelier = atelier;
+        this.listView = listView;
         bouton = new Button("Afficher les opérateurs");
 
         bouton.setOnAction(e -> {
-            afficherOperateurs(atelier, zoneAffichage);
+            afficherOperateurs();
 
             zoneAction.getChildren().clear();
             actionsAjoutees = false;
@@ -30,7 +34,7 @@ public class BoutonOperateurController {
                 action1.setOnAction(ev -> {
                     CreerOperateurView fenetre = new CreerOperateurView(operateurCree -> {
                         atelier.ajouterOperateur(operateurCree);
-                        afficherOperateurs(atelier, zoneAffichage); 
+                        afficherOperateurs();
                     });
                     fenetre.show();
                 });
@@ -40,7 +44,7 @@ public class BoutonOperateurController {
                         atelier.getListeOperateurs(),
                         operateurASupprimer -> {
                             atelier.retirerOperateur(operateurASupprimer);
-                            afficherOperateurs(atelier, zoneAffichage);
+                            afficherOperateurs();
                         }
                     );
                     fenetreSuppr.show();
@@ -50,19 +54,13 @@ public class BoutonOperateurController {
                 actionsAjoutees = true;
 
                 bouton.setDisable(true);
-                if (boutonPoste != null) boutonPoste.setDisable(false); 
+                if (boutonPoste != null) boutonPoste.setDisable(false);
             }
         });
     }
 
-    private void afficherOperateurs(Atelier atelier, TextArea zoneAffichage) {
-        StringBuilder sb = new StringBuilder("Opérateurs disponibles :\n");
-        if (atelier.getListeOperateurs().isEmpty()) {
-            sb.append("Aucun opérateur.\n");
-        } else {
-            atelier.getListeOperateurs().forEach(o -> sb.append("- ").append(o.toString()).append("\n"));
-        }
-        zoneAffichage.setText(sb.toString());
+    private void afficherOperateurs() {
+        listView.setItems(FXCollections.observableArrayList(atelier.getListeOperateurs()));
     }
 
     public Button getButton() {
