@@ -22,6 +22,8 @@ public class BoutonOperateurController {
         bouton.setOnAction(e -> {
             afficherOperateurs();
 
+            listView.hideMachineListView(); // <-- Ajoute ceci pour masquer la liste des machines
+
             zoneAction.getChildren().clear();
             actionsAjoutees = false;
 

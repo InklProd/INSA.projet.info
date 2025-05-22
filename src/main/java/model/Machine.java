@@ -55,14 +55,13 @@ public class Machine {
     private float tempsObservation = 0f;
 
     public void setTempsFonctionnement(float marche, float observation) {
-    this.tempsMarche = marche;
-    this.tempsObservation = observation;
+        this.tempsMarche = marche;
+        this.tempsObservation = observation;
     }
 
     public float getFiabilite() {
-    if (tempsObservation == 0) return 0;
-    return tempsMarche / tempsObservation;
+        if (tempsObservation == 0) return 0;
+        return tempsMarche / tempsObservation;
     }
-
 }
 
