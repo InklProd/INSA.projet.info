@@ -11,10 +11,10 @@ public class BoutonOperateurController {
     private final Button bouton;
     private boolean actionsAjoutees = false;
     private Button boutonPoste;
-    private final ModifierControlleur listView;
+    private final PosteOpListeView listView;
     private final Atelier atelier;
 
-    public BoutonOperateurController(Atelier atelier, ModifierControlleur listView, HBox zoneAction) {
+    public BoutonOperateurController(Atelier atelier, PosteOpListeView listView, HBox zoneAction) {
         this.atelier = atelier;
         this.listView = listView;
         bouton = new Button("Afficher les opérateurs");

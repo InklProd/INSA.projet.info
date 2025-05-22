@@ -2,7 +2,7 @@ package view;
 
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
-import controlleur.ModifierControlleur;
+import controlleur.PosteOpListeView;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -17,13 +17,17 @@ public class AtelierView {
         Label label = new Label("Bienvenue dans l'atelier !");
 
         ListView<Object> listView = new ListView<>();
-        ModifierControlleur ListeObj = new ModifierControlleur(listView);
+        ListView<String> machineListView = new ListView<>();
+        machineListView.setPrefWidth(200);
 
-        // Zone d'actions
+        PosteOpListeView ListeObj = new PosteOpListeView(listView);
+        ListeObj.setMachineListView(machineListView);
+
+        HBox centre = ListeObj.getCenteredView();
+
         HBox zoneActions = new HBox(10);
         zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
 
-        // Contrôleurs adaptés
         BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, ListeObj, zoneActions);
         BoutonPosteController boutonPoste = new BoutonPosteController(atelier, ListeObj, zoneActions);
 
@@ -39,7 +43,7 @@ public class AtelierView {
         VBox vbox = new VBox(10,
                 label,
                 boutonsHaut,
-                ListeObj.getView(),
+                centre,
                 zoneActions
         );
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");

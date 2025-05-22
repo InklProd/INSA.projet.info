@@ -35,4 +35,8 @@ public class Operateur {
     public String toString() {
         return code + " - " + nom + " " + prenom;
     }
+
+    public void setCode(String code) { this.code = code; }
+    public void setNom(String nom) { this.nom = nom; }
+    public void setPrenom(String prenom) { this.prenom = prenom; }
 }

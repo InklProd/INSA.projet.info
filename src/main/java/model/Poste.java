@@ -38,7 +38,6 @@ public class Poste {
         dPoste = null;
     }
 
-    // Getters
     public ArrayList<Machine> getListeMachines() {
         return listeMachines;
     }

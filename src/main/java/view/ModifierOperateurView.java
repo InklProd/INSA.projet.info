@@ -35,17 +35,10 @@ public class ModifierOperateurView extends Stage {
             String nom = nomField.getText();
             String prenom = prenomField.getText();
             if (!code.isEmpty() && !nom.isEmpty() && !prenom.isEmpty()) {
-                // Il faut ajouter des setters dans Operateur pour que ceci fonctionne proprement
                 try {
-                    java.lang.reflect.Field fCode = operateur.getClass().getDeclaredField("code");
-                    java.lang.reflect.Field fNom = operateur.getClass().getDeclaredField("nom");
-                    java.lang.reflect.Field fPrenom = operateur.getClass().getDeclaredField("prenom");
-                    fCode.setAccessible(true);
-                    fNom.setAccessible(true);
-                    fPrenom.setAccessible(true);
-                    fCode.set(operateur, code);
-                    fNom.set(operateur, nom);
-                    fPrenom.set(operateur, prenom);
+                    operateur.setCode(code);
+                    operateur.setNom(nom);
+                    operateur.setPrenom(prenom);
                 } catch (Exception ex) {
                     new Alert(AlertType.ERROR, "Erreur lors de la modification.").showAndWait();
                 }
