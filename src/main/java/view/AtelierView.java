@@ -2,15 +2,13 @@ package view;
 
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
-import controlleur.CheckBoxControlleur;
+import controlleur.ModifierControlleur;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Atelier;
-import model.Operateur;
-import model.Poste;
 
 public class AtelierView {
     public Parent getView() {
@@ -18,18 +16,16 @@ public class AtelierView {
 
         Label label = new Label("Bienvenue dans l'atelier !");
 
-        // ListView commune pour opérateurs et postes
         ListView<Object> listView = new ListView<>();
-        listView.setPrefHeight(150);
-        listView.setCellFactory(list -> new CheckBoxControlleur());
+        ModifierControlleur ListeObj = new ModifierControlleur(listView);
 
         // Zone d'actions
         HBox zoneActions = new HBox(10);
         zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
 
         // Contrôleurs adaptés
-        BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, listView, zoneActions);
-        BoutonPosteController boutonPoste = new BoutonPosteController(atelier, listView, zoneActions);
+        BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, ListeObj, zoneActions);
+        BoutonPosteController boutonPoste = new BoutonPosteController(atelier, ListeObj, zoneActions);
 
         boutonOperateur.setBoutonPoste(boutonPoste.getButton());
         boutonPoste.setBoutonOperateur(boutonOperateur.getButton());
@@ -43,7 +39,7 @@ public class AtelierView {
         VBox vbox = new VBox(10,
                 label,
                 boutonsHaut,
-                listView,
+                ListeObj.getView(),
                 zoneActions
         );
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");

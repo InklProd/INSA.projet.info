@@ -2,21 +2,19 @@ package controlleur;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import model.Atelier;
 import model.Operateur;
 import view.CreerOperateurView;
-import view.SupprimerOperateurView;
 
 public class BoutonOperateurController {
     private final Button bouton;
     private boolean actionsAjoutees = false;
     private Button boutonPoste;
-    private final ListView<Object> listView;
+    private final ModifierControlleur listView;
     private final Atelier atelier;
 
-    public BoutonOperateurController(Atelier atelier, ListView<Object> listView, HBox zoneAction) {
+    public BoutonOperateurController(Atelier atelier, ModifierControlleur listView, HBox zoneAction) {
         this.atelier = atelier;
         this.listView = listView;
         bouton = new Button("Afficher les opérateurs");
@@ -40,14 +38,11 @@ public class BoutonOperateurController {
                 });
 
                 action2.setOnAction(ev -> {
-                    SupprimerOperateurView fenetreSuppr = new SupprimerOperateurView(
-                        atelier.getListeOperateurs(),
-                        operateurASupprimer -> {
-                            atelier.retirerOperateur(operateurASupprimer);
-                            afficherOperateurs();
-                        }
-                    );
-                    fenetreSuppr.show();
+                    Object operateurASupprimer = listView.getSelectedItem();
+                    if (operateurASupprimer instanceof Operateur) {
+                        atelier.retirerOperateur((Operateur) operateurASupprimer);
+                        afficherOperateurs();
+                    }
                 });
 
                 zoneAction.getChildren().addAll(action1, action2);
@@ -60,7 +55,7 @@ public class BoutonOperateurController {
     }
 
     private void afficherOperateurs() {
-        listView.setItems(FXCollections.observableArrayList(atelier.getListeOperateurs()));
+        listView.getView().setItems(FXCollections.observableArrayList(atelier.getListeOperateurs()));
     }
 
     public Button getButton() {

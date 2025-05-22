@@ -2,20 +2,19 @@ package controlleur;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import model.Atelier;
+import model.Poste;
 import view.CreerPosteView;
-import view.SupprimerPosteView;
 
 public class BoutonPosteController {
     private final Button bouton;
     private boolean actionsAjoutees = false;
     private Button boutonOperateur;
-    private final ListView<Object> listView;
+    private final ModifierControlleur listView;
     private final Atelier atelier;
 
-    public BoutonPosteController(Atelier atelier, ListView<Object> listView, HBox zoneAction) {
+    public BoutonPosteController(Atelier atelier, ModifierControlleur listView, HBox zoneAction) {
         this.atelier = atelier;
         this.listView = listView;
         bouton = new Button("Afficher les postes");
@@ -39,14 +38,11 @@ public class BoutonPosteController {
                 });
 
                 action2.setOnAction(ev -> {
-                    SupprimerPosteView fenetreSuppr = new SupprimerPosteView(
-                        atelier.getListePostes(),
-                        posteASupprimer -> {
-                            atelier.retirerPoste(posteASupprimer);
-                            afficherPostes();
-                        }
-                    );
-                    fenetreSuppr.show();
+                    Object posteASupprimer = listView.getSelectedItem();
+                    if (posteASupprimer instanceof Poste) {
+                        atelier.retirerPoste((Poste) posteASupprimer);
+                        afficherPostes();
+                    }
                 });
 
                 zoneAction.getChildren().addAll(action1, action2);
@@ -59,7 +55,7 @@ public class BoutonPosteController {
     }
 
     private void afficherPostes() {
-        listView.setItems(FXCollections.observableArrayList(atelier.getListePostes()));
+        listView.getView().setItems(FXCollections.observableArrayList(atelier.getListePostes()));
     }
 
     public Button getButton() {

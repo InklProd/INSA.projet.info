@@ -7,7 +7,6 @@ import model.Poste;
 
 public class CheckBoxControlleur extends ListCell<Object> {
 
-    @Override
     protected void updateItem(Object item, boolean empty) {
         super.updateItem(item, empty);
         if (empty || item == null) {
