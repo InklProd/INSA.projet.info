@@ -38,14 +38,8 @@ public class PosteOpListeView {
                         machineListView.getItems().setAll(
                             poste.getListeMachines().stream().map(Object::toString).collect(Collectors.toList())
                         );
-                        if (!container.getChildren().contains(machineListView)) {
-                            container.getChildren().add(machineListView);
-                        }
-                        machineListView.setVisible(true);
                     } else {
                         machineListView.getItems().clear();
-                        machineListView.setVisible(false);
-                        container.getChildren().remove(machineListView);
                     }
                 }
                 listView.refresh();
@@ -66,7 +60,6 @@ public class PosteOpListeView {
         });
     }
 
-    // Retourne le conteneur centré
     public HBox getCenteredView() {
         return container;
     }
@@ -81,21 +74,17 @@ public class PosteOpListeView {
 
     public void setMachineListView(ListView<String> machineListView) {
         this.machineListView = machineListView;
-        this.machineListView.setVisible(false);
-        if (container.getChildren().contains(machineListView)) {
-            container.getChildren().remove(machineListView);
-        }
-    }
-
-    public void hideMachineListView() {
-        if (machineListView != null) {
-            machineListView.setVisible(false);
-            container.getChildren().remove(machineListView);
-            machineListView.getItems().clear();
-        }
     }
 
     public javafx.scene.control.ListView<String> getMachineListView() {
         return this.machineListView;
+    }
+
+    public void hideMachineListView() {
+        if (machineListView != null) {
+            machineListView.getItems().clear();
+            machineListView.setVisible(false);
+            machineListView.setManaged(false);
+        }
     }
 }

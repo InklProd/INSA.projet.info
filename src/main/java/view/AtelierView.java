@@ -1,5 +1,6 @@
 package view;
 
+import controlleur.BoutonMachineControlleur;
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
 import controlleur.PosteOpListeView;
@@ -10,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Atelier;
+import model.Poste;
 
 public class AtelierView {
     public Parent getView() {
@@ -24,35 +26,50 @@ public class AtelierView {
         PosteOpListeView ListeObj = new PosteOpListeView(listView);
         ListeObj.setMachineListView(machineListView);
 
-        HBox centre = ListeObj.getCenteredView();
-
-        HBox zoneActions = new HBox(10);
-        zoneActions.setStyle("-fx-padding: 10; -fx-alignment: center;");
-
-        Button creerPosteBtn = new Button("Créer poste");
-        Button supprimerPosteBtn = new Button("Supprimer poste");
-
-        // Ajoute seulement les boutons poste
-        zoneActions.getChildren().addAll(creerPosteBtn, supprimerPosteBtn);
-
-        BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, ListeObj, zoneActions);
-        BoutonPosteController boutonPoste = new BoutonPosteController(atelier, ListeObj, zoneActions);
-
+        // Zone d'action pour postes/opérateurs
+        HBox zoneActionsPoste = new HBox(10);
+        zoneActionsPoste.setStyle("-fx-padding: 10; -fx-alignment: center;");
+        BoutonOperateurController boutonOperateur = new BoutonOperateurController(atelier, ListeObj, zoneActionsPoste);
+        BoutonPosteController boutonPoste = new BoutonPosteController(atelier, ListeObj, zoneActionsPoste);
         boutonOperateur.setBoutonPoste(boutonPoste.getButton());
         boutonPoste.setBoutonOperateur(boutonOperateur.getButton());
 
-        HBox boutonsHaut = new HBox(10,
-                boutonPoste.getButton(),
-                boutonOperateur.getButton()
+        VBox vboxGauche = new VBox(10, ListeObj.getView(), zoneActionsPoste);
+        vboxGauche.setStyle("-fx-alignment: center;");
+
+        // Zone d'action pour machines
+        HBox zoneActionsMachine = new HBox(10);
+        zoneActionsMachine.setStyle("-fx-padding: 10; -fx-alignment: center;");
+        Button creerMachineBtn = new Button("Créer machine");
+        Button supprimerMachineBtn = new Button("Supprimer machine");
+        zoneActionsMachine.getChildren().addAll(creerMachineBtn, supprimerMachineBtn);
+
+        VBox vboxDroite = new VBox(10, machineListView, zoneActionsMachine);
+        vboxDroite.setStyle("-fx-alignment: center;");
+        vboxDroite.setVisible(false);
+        vboxDroite.setManaged(false);
+
+        BoutonMachineControlleur boutonMachine = new BoutonMachineControlleur(
+            atelier, listView, creerMachineBtn, supprimerMachineBtn, machineListView
         );
+
+
+        listView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            boolean isPoste = newVal instanceof Poste;
+            vboxDroite.setVisible(isPoste);
+            vboxDroite.setManaged(isPoste);
+            if (!isPoste) {
+                machineListView.getItems().clear();
+            }
+        });
+
+        HBox centre = new HBox(30, vboxGauche, vboxDroite);
+        centre.setStyle("-fx-alignment: center;");
+
+        HBox boutonsHaut = new HBox(10, boutonPoste.getButton(), boutonOperateur.getButton());
         boutonsHaut.setStyle("-fx-alignment: center;");
 
-        VBox vbox = new VBox(10,
-                label,
-                boutonsHaut,
-                centre,
-                zoneActions
-        );
+        VBox vbox = new VBox(10, label, boutonsHaut, centre);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         return vbox;
