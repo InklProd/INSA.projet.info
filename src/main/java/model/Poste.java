@@ -4,10 +4,6 @@
  */
 package model;
 
-/**
- *
- * @author emili
- */
 import java.util.ArrayList;
 
 public class Poste {
@@ -45,6 +41,22 @@ public class Poste {
     // Getters
     public ArrayList<Machine> getListeMachines() {
         return listeMachines;
+    }
+
+    public String getRefPoste() {
+        return refPoste;
+    }
+
+    public String getDPoste() {
+        return dPoste;
+    }
+
+    public void setRefPoste(String refPoste) {
+        this.refPoste = refPoste;
+    }
+
+    public void setDPoste(String dPoste) {
+        this.dPoste = dPoste;
     }
 
     @Override

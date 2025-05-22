@@ -2,6 +2,8 @@ package controlleur;
 import javafx.scene.control.ListView;
 import model.Operateur;
 import model.Poste;
+import view.ModifierOperateurView;
+import view.ModifierPosteView;
 
 public class ModifierControlleur {
     private ListView<Object> listView;
@@ -14,10 +16,14 @@ public class ModifierControlleur {
             if (event.getClickCount() == 2) {
                 Object selected = getSelectedItem();
                 if (selected instanceof Operateur) {
-                    System.out.println("Double-clic sur operateur : " + selected);
+                    ModifierOperateurView fenetre = new ModifierOperateurView((Operateur) selected);
+                    fenetre.setOnHidden(ev -> listView.refresh());
+                    fenetre.show();
                 }
                 if (selected instanceof Poste) {
-                    System.out.println("Double-clic sur poste : " + selected);
+                    ModifierPosteView fenetre = new ModifierPosteView((Poste) selected);
+                    fenetre.setOnHidden(ev -> listView.refresh());
+                    fenetre.show();
                 }
             }
         });
