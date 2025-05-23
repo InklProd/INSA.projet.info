@@ -3,6 +3,7 @@ package view;
 import controlleur.BoutonMachineControlleur;
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
+import controlleur.CompetenceControlleur;
 import controlleur.PosteOpListeView;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Atelier;
+import model.Operateur;
 import model.Poste;
 
 public class AtelierView {
@@ -53,17 +55,29 @@ public class AtelierView {
             atelier, listView, creerMachineBtn, supprimerMachineBtn, machineListView
         );
 
+        // Ajout du contrôleur de compétences
+        CompetenceControlleur competenceControlleur = new CompetenceControlleur();
+        VBox vboxCompetence = competenceControlleur.getView();
+        vboxCompetence.setVisible(false);
+        vboxCompetence.setManaged(false);
 
         listView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             boolean isPoste = newVal instanceof Poste;
+            boolean isOperateur = newVal instanceof Operateur;
             vboxDroite.setVisible(isPoste);
             vboxDroite.setManaged(isPoste);
             if (!isPoste) {
                 machineListView.getItems().clear();
             }
+            // Affichage dynamique de la zone compétence
+            if (isOperateur) {
+                competenceControlleur.setOperateur((Operateur) newVal);
+            } else {
+                competenceControlleur.setOperateur(null);
+            }
         });
 
-        HBox centre = new HBox(30, vboxGauche, vboxDroite);
+        HBox centre = new HBox(30, vboxGauche, vboxDroite, vboxCompetence);
         centre.setStyle("-fx-alignment: center;");
 
         HBox boutonsHaut = new HBox(10, boutonPoste.getButton(), boutonOperateur.getButton());

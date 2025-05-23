@@ -6,6 +6,7 @@ import model.Poste;
 import model.Atelier;
 import model.Machine;
 import view.CreerMachineView;
+import view.ModifierMachineView;
 
 public class BoutonMachineControlleur {
     public BoutonMachineControlleur(
@@ -43,6 +44,27 @@ public class BoutonMachineControlleur {
                         machineListView.getItems().setAll(
                             poste.getListeMachines().stream().map(Object::toString).collect(java.util.stream.Collectors.toList())
                         );
+                    }
+                }
+            }
+        });
+
+        machineListView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Object posteSelected = posteListView.getSelectionModel().getSelectedItem();
+                String machineStr = machineListView.getSelectionModel().getSelectedItem();
+                if (posteSelected instanceof Poste && machineStr != null) {
+                    Poste poste = (Poste) posteSelected;
+                    Machine machine = poste.getListeMachines().stream()
+                        .filter(m -> m.toString().equals(machineStr))
+                        .findFirst().orElse(null);
+                    if (machine != null) {
+                        ModifierMachineView fenetre = new ModifierMachineView(machine, machineModifiee -> {
+                            machineListView.getItems().setAll(
+                                poste.getListeMachines().stream().map(Object::toString).collect(java.util.stream.Collectors.toList())
+                            );
+                        });
+                        fenetre.show();
                     }
                 }
             }

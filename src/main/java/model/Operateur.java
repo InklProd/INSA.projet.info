@@ -39,4 +39,17 @@ public class Operateur {
     public void setCode(String code) { this.code = code; }
     public void setNom(String nom) { this.nom = nom; }
     public void setPrenom(String prenom) { this.prenom = prenom; }
+    public String[] getCompetences() { return competences; }
+    public void setCompetences(String[] competences) { this.competences = competences; }
+    public void ajouterCompetence(String competence) {
+        if (competence == null || competence.isEmpty()) return;
+        java.util.List<String> list = new java.util.ArrayList<>(java.util.Arrays.asList(competences));
+        list.add(competence);
+        competences = list.toArray(new String[0]);
+    }
+    public void supprimerCompetence(String competence) {
+        java.util.List<String> list = new java.util.ArrayList<>(java.util.Arrays.asList(competences));
+        list.remove(competence);
+        competences = list.toArray(new String[0]);
+    }
 }
