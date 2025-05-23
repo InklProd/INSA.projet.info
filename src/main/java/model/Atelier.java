@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class Atelier {
     private ArrayList<Poste> listePostes;
     private ArrayList<Operateur> listeOperateurs;
+    private ArrayList<Gamme> listeGammes;
 
     public Atelier() {
         listePostes = new ArrayList<>();
         listeOperateurs = new ArrayList<>();
+        listeGammes = new ArrayList<>();
     }
 
     public void ajouterPoste(Poste poste) {
@@ -29,6 +31,14 @@ public class Atelier {
 
     public void retirerOperateur(Operateur op) {
         listeOperateurs.remove(op);
+    }
+
+    public void ajouterGamme(Gamme gamme) {
+        listeGammes.add(gamme);
+    }
+
+    public void retirerGamme(Gamme gamme) {
+        listeGammes.remove(gamme);
     }
 
     public void afficherAtelier() {
@@ -49,5 +59,9 @@ public class Atelier {
 
     public ArrayList<Operateur> getListeOperateurs() {
         return listeOperateurs;
+    }
+
+    public ArrayList<Gamme> getListeGammes() {
+        return listeGammes;
     }
 }

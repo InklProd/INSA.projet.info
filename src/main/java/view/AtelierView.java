@@ -21,6 +21,13 @@ public class AtelierView {
 
         Label label = new Label("Bienvenue dans l'atelier !");
 
+        // Bouton en haut à gauche
+        Button btnListeGammes = new Button("Afficher la liste des gammes");
+        btnListeGammes.setOnAction(e -> new ListeGammeView(atelier).show());
+        HBox topBar = new HBox();
+        topBar.setStyle("-fx-alignment: top-left; -fx-padding: 10;");
+        topBar.getChildren().add(btnListeGammes);
+
         ListView<Object> listView = new ListView<>();
         ListView<String> machineListView = new ListView<>();
         machineListView.setPrefWidth(200);
@@ -83,7 +90,7 @@ public class AtelierView {
         HBox boutonsHaut = new HBox(10, boutonPoste.getButton(), boutonOperateur.getButton());
         boutonsHaut.setStyle("-fx-alignment: center;");
 
-        VBox vbox = new VBox(10, label, boutonsHaut, centre);
+        VBox vbox = new VBox(10, topBar, label, boutonsHaut, centre);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         return vbox;

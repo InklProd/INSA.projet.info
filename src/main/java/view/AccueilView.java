@@ -3,9 +3,13 @@ package view;
 import controlleur.OuvertureAtelier;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import model.Atelier;
 
 public class AccueilView extends Application {
 
@@ -13,6 +17,7 @@ public class AccueilView extends Application {
         Label messageLabel = new Label("Prêt à gérer l'atelier ?");
 
         OuvertureAtelier controller = new OuvertureAtelier();
+        Atelier atelier = new Atelier(); // Ajout de l'atelier ici
 
         VBox layout = new VBox(20);
         layout.setStyle("-fx-padding: 30; -fx-alignment: center;");

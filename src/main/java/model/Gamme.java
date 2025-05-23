@@ -53,5 +53,21 @@ public class Gamme {
         }
         return duree;
     }
+
+    public String getRefGamme() {
+        return refGamme;
+    }
+
+    public void setRefGamme(String refGamme) {
+        this.refGamme = refGamme;
+    }
+
+    public ArrayList<Operation> getListeOperations() {
+        return listeOperations;
+    }
+
+    public ArrayList<Equipement> getListeEquipements() {
+        return listeEquipements;
+    }
 }
 
