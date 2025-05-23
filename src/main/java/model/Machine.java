@@ -1,26 +1,24 @@
 package model;
 
-public class Machine {
-    private String refMachine;
-    private String dMachine;
+public class Machine extends Equipement {
     private String type;
     private float cout;
     private float x;
     private float y;
     private float tempsMarche = 0f;
     private float tempsObservation = 0f;
+    private Operation operation;
 
     public Machine(String refMachine, String dMachine, String type, float cout, float x, float y) {
-        this.refMachine = refMachine;
-        this.dMachine = dMachine;
+        super(refMachine, dMachine);
         this.type = type;
         this.cout = cout;
         this.x = x;
         this.y = y;
     }
 
-    public String getRefMachine() { return refMachine; }
-    public String getDMachine() { return dMachine; }
+    public String getRefMachine() { return getRefEquipement(); }
+    public String getDMachine() { return getDEquipement(); }
     public String getType() { return type; }
     public float getCout() { return cout; }
     public float getX() { return x; }
@@ -28,8 +26,8 @@ public class Machine {
     public float getTempsMarche() { return tempsMarche; }
     public float getTempsObservation() { return tempsObservation; }
 
-    public void setRefMachine(String refMachine) { this.refMachine = refMachine; }
-    public void setDMachine(String dMachine) { this.dMachine = dMachine; }
+    public void setRefMachine(String refMachine) { setRefEquipement(refMachine); }
+    public void setDMachine(String dMachine) { setDEquipement(dMachine); }
     public void setType(String type) { this.type = type; }
     public void setCout(float cout) { this.cout = cout; }
     public void setX(float x) { this.x = x; }
@@ -38,12 +36,11 @@ public class Machine {
     public void setTempsObservation(float tempsObservation) { this.tempsObservation = tempsObservation; }
 
     public void afficheMachine() {
-        System.out.println("Ref: " + refMachine + ", Désignation: " + dMachine + ", Type: " + type +
+        System.out.println("Ref: " + getRefEquipement() + ", Désignation: " + getDEquipement() + ", Type: " + type +
                 ", Coût: " + cout + ", Position: (" + x + ", " + y + ")");
     }
 
     public void modifierMachine(String dMachine, String type, float cout, float x, float y) {
-        this.dMachine = dMachine;
         this.type = type;
         this.cout = cout;
         this.x = x;
@@ -51,8 +48,8 @@ public class Machine {
     }
 
     public void supprimerMachine() {
-        refMachine = null;
-        dMachine = null;
+        setRefEquipement(null);
+        setDEquipement(null);
         type = null;
         cout = 0;
         x = 0;
@@ -67,7 +64,7 @@ public class Machine {
     }
 
     public String toString() {
-        return refMachine + " - " + dMachine;
+        return getRefEquipement() + " - " + getDEquipement();
     }
 }
 

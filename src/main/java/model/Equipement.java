@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author emili
- */
 public class Equipement {
     private String refEquipement;
     private String dEquipement;
@@ -23,6 +15,14 @@ public class Equipement {
 
     public String getDEquipement() {
         return dEquipement;
+    }
+
+    public void setRefEquipement(String refEquipement) {
+        this.refEquipement = refEquipement;
+    }
+
+    public void setDEquipement(String dEquipement) {
+        this.dEquipement = dEquipement;
     }
 }
 

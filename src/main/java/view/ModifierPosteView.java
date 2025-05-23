@@ -30,8 +30,8 @@ public class ModifierPosteView extends Stage {
             String ref = refField.getText();
             String desc = descField.getText();
             if (!ref.isEmpty() && !desc.isEmpty()) {
-                poste.setRefPoste(ref);
-                poste.setDPoste(desc);
+                poste.setRefEquipement(ref);
+                poste.setDEquipement(desc);
                 this.close();
             } else {
                 Alert alert = new Alert(AlertType.ERROR, "Veuillez remplir tous les champs.");

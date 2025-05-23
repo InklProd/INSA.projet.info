@@ -6,14 +6,11 @@ package model;
 
 import java.util.ArrayList;
 
-public class Poste {
-    private String refPoste;
-    private String dPoste;
+public class Poste extends Equipement {
     private ArrayList<Machine> listeMachines;
 
     public Poste(String refPoste, String dPoste) {
-        this.refPoste = refPoste;
-        this.dPoste = dPoste;
+        super(refPoste, dPoste);
         this.listeMachines = new ArrayList<>();
     }
 
@@ -26,7 +23,7 @@ public class Poste {
     }
 
     public void affichePoste() {
-        System.out.println("Poste: " + refPoste + ", " + dPoste);
+        System.out.println("Poste: " + getRefEquipement() + ", " + getDEquipement());
         for (Machine m : listeMachines) {
             m.afficheMachine();
         }
@@ -34,8 +31,8 @@ public class Poste {
 
     public void supprimerPoste() {
         listeMachines.clear();
-        refPoste = null;
-        dPoste = null;
+        setRefEquipement(null);
+        setDEquipement(null);
     }
 
     public ArrayList<Machine> getListeMachines() {
@@ -43,24 +40,16 @@ public class Poste {
     }
 
     public String getRefPoste() {
-        return refPoste;
+        return getRefEquipement();
     }
 
     public String getDPoste() {
-        return dPoste;
-    }
-
-    public void setRefPoste(String refPoste) {
-        this.refPoste = refPoste;
-    }
-
-    public void setDPoste(String dPoste) {
-        this.dPoste = dPoste;
+        return getDEquipement();
     }
 
     @Override
     public String toString() {
-        return "Réf: " + refPoste + ", Description: " + dPoste;
+        return "Réf: " + getRefEquipement() + ", Description: " + getDEquipement();
     }
 }
 
