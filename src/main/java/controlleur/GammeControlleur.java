@@ -20,11 +20,11 @@ public class GammeControlleur {
                     atelier.ajouterGamme(nouvelleGamme);
                     listView.getItems().add(listView.getItems().size() - 1, nouvelleGamme);
                     listView.getSelectionModel().select(nouvelleGamme);
-                    GammeView gammeView = new GammeView(nouvelleGamme);
+                    GammeView gammeView = new GammeView(nouvelleGamme, atelier);
                     gammeView.setOnShown(e -> parentStage.close());
                     gammeView.show();
                 } else if (event.getClickCount() == 1) {
-                    GammeView gammeView = new GammeView(selected);
+                    GammeView gammeView = new GammeView(selected, atelier);
                     gammeView.setOnShown(e -> parentStage.close());
                     gammeView.show();
                 }

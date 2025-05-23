@@ -13,9 +13,12 @@ import model.Gamme;
 import model.Equipement;
 import model.Operation;
 import controlleur.GammeControlleur;
+import javafx.scene.input.MouseEvent;
+import view.SelectionEquipementView;
+import model.Atelier;
 
 public class GammeView extends Stage {
-    public GammeView(Gamme gamme) {
+    public GammeView(Gamme gamme, Atelier atelier) {
         VBox root = new VBox(20);
         root.setStyle("-fx-padding: 20;");
 
@@ -47,8 +50,20 @@ public class GammeView extends Stage {
                 setText(empty || item == null ? "" : (item.getRefEquipement() + " : " + item.getDEquipement()));
             }
         });
+        // Élément spécial pour ajouter un équipement
+        Equipement addEquipementPlaceholder = new Equipement("+ Ajouter un équipement", "");
+        eqListView.getItems().add(addEquipementPlaceholder);
         eqBox.getChildren().add(eqListView);
         root.getChildren().add(eqBox);
+
+        // Action d'ajout d'équipement
+        eqListView.setOnMouseClicked((MouseEvent event) -> {
+            Equipement selected = eqListView.getSelectionModel().getSelectedItem();
+            if (selected == addEquipementPlaceholder) {
+                SelectionEquipementView selectionView = new SelectionEquipementView(gamme, atelier, eqListView);
+                selectionView.show();
+            }
+        });
 
         // Contrôleur pour la validation
         new GammeControlleur(gamme, refField, validerBtn);
