@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class EvenementMaintenance {
     private LocalDateTime dateHeure;
-    private Machine machine;
+    private Machine refmachine;
     private String typeEvenement; // "A" ou "D"
-    private String operateur;
+    private String refoperateur;
     private String cause;
 
-    public EvenementMaintenance(LocalDateTime dateHeure, Machine machine, String typeEvenement, String operateur, String cause) {
+    public EvenementMaintenance(LocalDateTime dateHeure, Machine refmachine, String typeEvenement, String refoperateur, String cause) {
         this.dateHeure = dateHeure;
-        this.machine = machine;
+        this.refmachine = refmachine;
         this.typeEvenement = typeEvenement;
-        this.operateur = operateur;
+        this.refoperateur = refoperateur;
         this.cause = cause;
     }
 
@@ -22,7 +22,7 @@ public class EvenementMaintenance {
     }
 
     public Machine getMachine() {
-        return machine;
+        return refmachine;
     }
 
     public String getTypeEvenement() {
@@ -30,7 +30,7 @@ public class EvenementMaintenance {
     }
 
     public String getOperateur() {
-        return operateur;
+        return refoperateur;
     }
 
     public String getCause() {

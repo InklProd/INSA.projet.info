@@ -13,11 +13,9 @@ import model.Gamme;
 import model.Equipement;
 import model.Operation;
 import controlleur.GammeControlleur;
-import javafx.scene.input.MouseEvent;
 import model.Atelier;
 import controlleur.EquipementControlleur;
-import model.Produit;
-import controlleur.ProduitControlleur;
+import model.Produit;;
 
 public class GammeView extends Stage {
     public GammeView(Gamme gamme, Atelier atelier) {
