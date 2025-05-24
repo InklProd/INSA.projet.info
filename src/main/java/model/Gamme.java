@@ -6,6 +6,7 @@ public class Gamme {
     private String refGamme;
     private ArrayList<Operation> listeOperations;
     private ArrayList<Equipement> listeEquipements;
+    private ArrayList<Produit> produitsFabriques = new ArrayList<>();
 
     public Gamme(String refGamme) {
         this.refGamme = refGamme;
@@ -68,6 +69,30 @@ public class Gamme {
 
     public ArrayList<Equipement> getListeEquipements() {
         return listeEquipements;
+    }
+
+    public void ajouterProduit(Produit produit) {
+        if (!produitsFabriques.contains(produit)) {
+            produitsFabriques.add(produit);
+            produit.ajouterGamme(this); // synchronisation bidirectionnelle
+        }
+    }
+
+    public void retirerProduit(Produit produit) {
+        if (produitsFabriques.remove(produit)) {
+            produit.retirerGamme(this);
+        }
+    }
+
+    public ArrayList<Produit> getProduitsFabriques() {
+        return produitsFabriques;
+    }
+
+    public void afficherProduitsFabriques() {
+        System.out.println("Produits fabriqués par la gamme " + refGamme + " :");
+        for (Produit p : produitsFabriques) {
+            System.out.println("- " + p.getCodeProduit() + " : " + p.getDProduit());
+        }
     }
 }
 

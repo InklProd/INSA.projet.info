@@ -16,6 +16,8 @@ import controlleur.GammeControlleur;
 import javafx.scene.input.MouseEvent;
 import model.Atelier;
 import controlleur.EquipementControlleur;
+import model.Produit;
+import controlleur.ProduitControlleur;
 
 public class GammeView extends Stage {
     public GammeView(Gamme gamme, Atelier atelier) {
@@ -82,6 +84,31 @@ public class GammeView extends Stage {
         operationControlleur.handleListViewActions(addOperationPlaceholder);
         // Action de suppression déléguée au contrôleur
         operationControlleur.handleSuppressionDepuisBouton(deleteOpBtn, addOperationPlaceholder);
+
+        // Liste des produits fabriqués par la gamme
+        VBox prodBox = new VBox(5);
+        prodBox.getChildren().add(new Label("Produits fabriqués par cette gamme :"));
+        ListView<Produit> prodListView = new ListView<>();
+        prodListView.getItems().addAll(gamme.getProduitsFabriques());
+        prodListView.setCellFactory(param -> new ListCell<Produit>() {
+            @Override
+            protected void updateItem(Produit item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getCodeProduit() + " : " + item.getDProduit());
+                }
+            }
+        });
+        prodBox.getChildren().add(prodListView);
+        Button creerProduitBtn = new Button("Créer un produit");
+        Button associerProduitBtn = new Button("Associer un produit existant");
+        Button supprimerProduitBtn = new Button("Supprimer le produit sélectionné");
+        prodBox.getChildren().addAll(creerProduitBtn, associerProduitBtn, supprimerProduitBtn);
+        root.getChildren().add(prodBox);
+        // Contrôleur dédié pour la gestion des produits
+        new controlleur.ProduitControlleur(gamme, prodListView, creerProduitBtn, associerProduitBtn, supprimerProduitBtn, this);
 
         // Contrôleur pour la validation
         new GammeControlleur(gamme, refField, validerBtn);

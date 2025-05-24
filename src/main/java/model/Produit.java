@@ -1,12 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Produit {
     private String codeProduit;
     private String dProduit;
+    private ArrayList<Gamme> gammes = new ArrayList<>();
 
     public Produit(String codeProduit, String dProduit) {
         this.codeProduit = codeProduit;
         this.dProduit = dProduit;
+        model.ProduitRepository.addProduit(this);
     }
 
     public void afficheProduit() {
@@ -23,5 +27,26 @@ public class Produit {
         this.dProduit = null;
     }
 
-    
+    public void ajouterGamme(Gamme gamme) {
+        if (!gammes.contains(gamme)) {
+            gammes.add(gamme);
+            gamme.ajouterProduit(this); // synchronisation bidirectionnelle
+        }
+    }
+
+    public void retirerGamme(Gamme gamme) {
+        gammes.remove(gamme);
+    }
+
+    public ArrayList<Gamme> getGammes() {
+        return gammes;
+    }
+
+    public String getCodeProduit() {
+        return codeProduit;
+    }
+
+    public String getDProduit() {
+        return dProduit;
+    }
 }
