@@ -59,11 +59,7 @@ public class SelectionEquipementView extends Stage {
                 gamme.getListeEquipements().add(selected);
                 // Met à jour la ListView de la vue principale avec indication du type
                 eqListView.getItems().add(eqListView.getItems().size() - 1, selected);
-                // Affiche une info à l'utilisateur (optionnel)
-                new javafx.scene.control.Alert(
-                    javafx.scene.control.Alert.AlertType.INFORMATION,
-                    "Équipement ajouté : " + selected.getRefEquipement() + type
-                ).showAndWait();
+                // Suppression de la notification d'ajout d'équipement
                 close();
             }
         });

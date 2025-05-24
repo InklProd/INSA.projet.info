@@ -14,8 +14,8 @@ import model.Equipement;
 import model.Operation;
 import controlleur.GammeControlleur;
 import javafx.scene.input.MouseEvent;
-import view.SelectionEquipementView;
 import model.Atelier;
+import controlleur.EquipementControlleur;
 
 public class GammeView extends Stage {
     public GammeView(Gamme gamme, Atelier atelier) {
@@ -30,40 +30,58 @@ public class GammeView extends Stage {
         refBox.getChildren().addAll(refField, validerBtn);
         root.getChildren().add(refBox);
 
-        // Liste des opérations
-        VBox opBox = new VBox(5);
-        opBox.getChildren().add(new Label("Liste des opérations :"));
-        ListView<Operation> opListView = new ListView<>();
-        opListView.getItems().addAll(gamme.getListeOperations());
-        opBox.getChildren().add(opListView);
-        root.getChildren().add(opBox);
-
         // Liste des équipements
         VBox eqBox = new VBox(5);
         eqBox.getChildren().add(new Label("Liste des équipements :"));
         ListView<Equipement> eqListView = new ListView<>();
         eqListView.getItems().addAll(gamme.getListeEquipements());
+        EquipementControlleur equipementControlleur = new EquipementControlleur(gamme, eqListView);
         eqListView.setCellFactory(param -> new ListCell<Equipement>() {
-            @Override
             protected void updateItem(Equipement item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? "" : (item.getRefEquipement() + " : " + item.getDEquipement()));
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else if (item.getRefEquipement().equals("+ Ajouter un équipement")) {
+                    setText(item.getRefEquipement());
+                    setGraphic(null);
+                } else {
+                    setText(item.getRefEquipement() + " : " + item.getDEquipement());
+                    setGraphic(null);
+                }
             }
         });
         // Élément spécial pour ajouter un équipement
         Equipement addEquipementPlaceholder = new Equipement("+ Ajouter un équipement", "");
         eqListView.getItems().add(addEquipementPlaceholder);
         eqBox.getChildren().add(eqListView);
+        // Bouton de suppression global sous la ListView
+        Button deleteBtn = new Button("Supprimer l'équipement sélectionné");
+        eqBox.getChildren().add(deleteBtn);
         root.getChildren().add(eqBox);
+        // Action d'ajout d'équipement déléguée au contrôleur
+        equipementControlleur.handleAjoutEquipement(addEquipementPlaceholder, atelier);
+        // Action de suppression déléguée au contrôleur
+        equipementControlleur.handleSuppressionDepuisBouton(deleteBtn, addEquipementPlaceholder);
 
-        // Action d'ajout d'équipement
-        eqListView.setOnMouseClicked((MouseEvent event) -> {
-            Equipement selected = eqListView.getSelectionModel().getSelectedItem();
-            if (selected == addEquipementPlaceholder) {
-                SelectionEquipementView selectionView = new SelectionEquipementView(gamme, atelier, eqListView);
-                selectionView.show();
-            }
-        });
+        // Liste des opérations
+        VBox opBox = new VBox(5);
+        opBox.getChildren().add(new Label("Liste des opérations :"));
+        ListView<Operation> opListView = new ListView<>();
+        opListView.getItems().addAll(gamme.getListeOperations());
+        // Élément spécial pour ajouter une opération
+        Operation addOperationPlaceholder = new Operation("+ Ajouter une opération", "", "", 0f);
+        opListView.getItems().add(addOperationPlaceholder);
+        opBox.getChildren().add(opListView);
+        // Bouton de suppression global sous la ListView des opérations
+        Button deleteOpBtn = new Button("Supprimer l'opération sélectionnée");
+        opBox.getChildren().add(deleteOpBtn);
+        root.getChildren().add(opBox);
+        // Contrôleur pour l'ajout et la modification d'opération (clic/double-clic)
+        controlleur.OperationControlleur operationControlleur = new controlleur.OperationControlleur(gamme, opListView);
+        operationControlleur.handleListViewActions(addOperationPlaceholder);
+        // Action de suppression déléguée au contrôleur
+        operationControlleur.handleSuppressionDepuisBouton(deleteOpBtn, addOperationPlaceholder);
 
         // Contrôleur pour la validation
         new GammeControlleur(gamme, refField, validerBtn);

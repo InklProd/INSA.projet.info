@@ -24,5 +24,33 @@ public class Operation {
     public String getRefEquipement() {
         return refEquipement;
     }
+
+    public String getRefOperation() {
+        return refOperation;
+    }
+
+    public String getDOperation() {
+        return dOperation;
+    }
+
+    public void setRefOperation(String refOperation) {
+        this.refOperation = refOperation;
+    }
+
+    public void setDOperation(String dOperation) {
+        this.dOperation = dOperation;
+    }
+
+    public void setRefEquipement(String refEquipement) {
+        this.refEquipement = refEquipement;
+    }
+
+    public void setDureeOperation(float dureeOperation) {
+        this.dureeOperation = dureeOperation;
+    }
+
+    public String toString() {
+        return refOperation;
+    }
 }
 
