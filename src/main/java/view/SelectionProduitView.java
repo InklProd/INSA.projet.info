@@ -19,7 +19,7 @@ public class SelectionProduitView extends Stage {
         root.getChildren().add(new Label("Sélectionnez un produit à associer à la gamme :"));
 
         // Récupère tous les produits existants (hors déjà associés à la gamme)
-        ArrayList<Produit> tousProduits = model.ProduitRepository.getAllProduits(); // À adapter selon ta gestion des produits
+        ArrayList<Produit> tousProduits = model.ProduitRepository.getAllProduits();
         ArrayList<Produit> nonAssocies = new ArrayList<>();
         for (Produit p : tousProduits) {
             if (!gamme.getProduitsFabriques().contains(p)) {
@@ -30,7 +30,6 @@ public class SelectionProduitView extends Stage {
         ListView<Produit> selectionListView = new ListView<>();
         selectionListView.getItems().addAll(nonAssocies);
         selectionListView.setCellFactory(param -> new ListCell<Produit>() {
-            @Override
             protected void updateItem(Produit item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? "" : (item.getCodeProduit() + " : " + item.getDProduit()));

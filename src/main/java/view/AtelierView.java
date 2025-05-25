@@ -108,14 +108,14 @@ public class AtelierView {
         boutonsHaut.setStyle("-fx-alignment: center;");
 
         // Bouton pour afficher la carte
-        Button btnAfficherCarte = new Button("Afficher la carte");
+        Button btnAfficherCarte = new Button("Afficher le plan");
         btnAfficherCarte.setOnAction(e -> mapControlleur.afficherCarte(atelier));
 
         // Barre en bas
         HBox bottomBar = new HBox();
         bottomBar.setStyle("-fx-alignment: bottom-right; -fx-padding: 10;");
         bottomBar.getChildren().add(btnAfficherCarte);
-        
+
         // Création de la VBox principale
         VBox vbox = new VBox(10, topBar, label, boutonsHaut, centre, bottomBar);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
