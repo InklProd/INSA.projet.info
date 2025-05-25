@@ -22,7 +22,6 @@ public class GammeView extends Stage {
         VBox root = new VBox(20);
         root.setStyle("-fx-padding: 20;");
 
-        // Champ modifiable pour la référence de la gamme + bouton de validation à côté
         HBox refBox = new HBox(10);
         refBox.getChildren().add(new Label("Référence de la gamme :"));
         TextField refField = new TextField(gamme.getRefGamme());
@@ -30,7 +29,7 @@ public class GammeView extends Stage {
         refBox.getChildren().addAll(refField, validerBtn);
         root.getChildren().add(refBox);
 
-        // Liste des équipements
+
         VBox eqBox = new VBox(5);
         eqBox.getChildren().add(new Label("Liste des équipements :"));
         ListView<Equipement> eqListView = new ListView<>();
@@ -51,16 +50,20 @@ public class GammeView extends Stage {
                 }
             }
         });
+
         // Élément spécial pour ajouter un équipement
         Equipement addEquipementPlaceholder = new Equipement("+ Ajouter un équipement", "");
         eqListView.getItems().add(addEquipementPlaceholder);
         eqBox.getChildren().add(eqListView);
+
         // Bouton de suppression global sous la ListView
         Button deleteBtn = new Button("Supprimer l'équipement sélectionné");
         eqBox.getChildren().add(deleteBtn);
         root.getChildren().add(eqBox);
+
         // Action d'ajout d'équipement déléguée au contrôleur
         equipementControlleur.handleAjoutEquipement(addEquipementPlaceholder, atelier);
+
         // Action de suppression déléguée au contrôleur
         equipementControlleur.handleSuppressionDepuisBouton(deleteBtn, addEquipementPlaceholder);
 
@@ -69,17 +72,21 @@ public class GammeView extends Stage {
         opBox.getChildren().add(new Label("Liste des opérations :"));
         ListView<Operation> opListView = new ListView<>();
         opListView.getItems().addAll(gamme.getListeOperations());
+
         // Élément spécial pour ajouter une opération
         Operation addOperationPlaceholder = new Operation("+ Ajouter une opération", "", "", 0f);
         opListView.getItems().add(addOperationPlaceholder);
         opBox.getChildren().add(opListView);
+
         // Bouton de suppression global sous la ListView des opérations
         Button deleteOpBtn = new Button("Supprimer l'opération sélectionnée");
         opBox.getChildren().add(deleteOpBtn);
         root.getChildren().add(opBox);
+
         // Contrôleur pour l'ajout et la modification d'opération (clic/double-clic)
         controlleur.OperationControlleur operationControlleur = new controlleur.OperationControlleur(gamme, opListView);
         operationControlleur.handleListViewActions(addOperationPlaceholder);
+
         // Action de suppression déléguée au contrôleur
         operationControlleur.handleSuppressionDepuisBouton(deleteOpBtn, addOperationPlaceholder);
 
@@ -89,7 +96,6 @@ public class GammeView extends Stage {
         ListView<Produit> prodListView = new ListView<>();
         prodListView.getItems().addAll(gamme.getProduitsFabriques());
         prodListView.setCellFactory(param -> new ListCell<Produit>() {
-            @Override
             protected void updateItem(Produit item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
@@ -105,10 +111,9 @@ public class GammeView extends Stage {
         Button supprimerProduitBtn = new Button("Supprimer le produit sélectionné");
         prodBox.getChildren().addAll(creerProduitBtn, associerProduitBtn, supprimerProduitBtn);
         root.getChildren().add(prodBox);
-        // Contrôleur dédié pour la gestion des produits
         new controlleur.ProduitControlleur(gamme, prodListView, creerProduitBtn, associerProduitBtn, supprimerProduitBtn, this);
 
-        // Contrôleur pour la validation
+
         new GammeControlleur(gamme, refField, validerBtn);
 
         this.setScene(new Scene(root, 400, 400));

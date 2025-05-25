@@ -36,7 +36,6 @@ public class SelectionEquipementView extends Stage {
         ListView<Equipement> equipementListView = new ListView<>();
         equipementListView.getItems().addAll(equipements);
         equipementListView.setCellFactory(param -> new ListCell<Equipement>() {
-            @Override
             protected void updateItem(Equipement item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? "" : (item.getRefEquipement() + " : " + item.getDEquipement()));

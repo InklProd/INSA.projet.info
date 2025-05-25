@@ -29,7 +29,6 @@ public class CreerOperationView extends Stage {
             new Label("Durée (heures) :"), dureeOperationField,
             validerBtn
         );
-        // Remplir la ComboBox avec les références d'équipement de la gamme
         for (Equipement eq : gamme.getListeEquipements()) {
             refEquipementCombo.getItems().add(eq.getRefEquipement());
         }

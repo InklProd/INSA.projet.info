@@ -1,9 +1,5 @@
 package model;
 
-/**
- *
- * @author emili
- */
 public class Operation {
     private String refOperation;
     private String dOperation;

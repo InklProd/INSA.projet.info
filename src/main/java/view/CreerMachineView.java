@@ -44,9 +44,7 @@ public class CreerMachineView extends Stage {
                 Machine machine = new Machine(ref, des, type, cout, x, y);
                 onMachineCree.accept(machine);
                 close();
-            } catch (Exception ex) {
-                // Optionnel : afficher une erreur à l'utilisateur
-            }
+            } catch (Exception ex) {}
         });
 
         VBox root = new VBox(10, refField, desField, typeField, coutField, xField, yField, valider);

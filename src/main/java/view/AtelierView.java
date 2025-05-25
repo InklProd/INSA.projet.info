@@ -43,6 +43,7 @@ public class AtelierView {
         topBar.setStyle("-fx-alignment: top-left; -fx-padding: 10; -fx-spacing: 20;");
         topBar.getChildren().addAll(btnListeGammes, btnCreerEvenement, btnFiabilite);
 
+        // Liste des postes et opérateurs
         ListView<Object> listView = new ListView<>();
         ListView<String> machineListView = new ListView<>();
         machineListView.setPrefWidth(200);
@@ -77,12 +78,13 @@ public class AtelierView {
             atelier, listView, creerMachineBtn, supprimerMachineBtn, machineListView
         );
 
-
+        // Contrôleur pour la gestion des compétences des opérateurs
         CompetenceControlleur competenceControlleur = new CompetenceControlleur();
         VBox vboxCompetence = competenceControlleur.getView();
         vboxCompetence.setVisible(false);
         vboxCompetence.setManaged(false);
 
+        // Écouteur de sélection pour afficher/masquer la zone de compétence
         listView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             boolean isPoste = newVal instanceof Poste;
             boolean isOperateur = newVal instanceof Operateur;
@@ -97,7 +99,8 @@ public class AtelierView {
                 competenceControlleur.setOperateur(null);
             }
         });
-
+        
+        
         HBox centre = new HBox(30, vboxGauche, vboxDroite, vboxCompetence);
         centre.setStyle("-fx-alignment: center;");
 
@@ -112,7 +115,8 @@ public class AtelierView {
         HBox bottomBar = new HBox();
         bottomBar.setStyle("-fx-alignment: bottom-right; -fx-padding: 10;");
         bottomBar.getChildren().add(btnAfficherCarte);
-
+        
+        // Création de la VBox principale
         VBox vbox = new VBox(10, topBar, label, boutonsHaut, centre, bottomBar);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
