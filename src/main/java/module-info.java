@@ -6,4 +6,6 @@ module insa.projet.info.mavenproject1 {
     exports controlleur;
     exports view;
     exports model;
+    requires java.desktop;
+    
 }

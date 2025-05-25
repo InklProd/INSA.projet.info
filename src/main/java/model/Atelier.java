@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Atelier {
     private ArrayList<Poste> listePostes;
@@ -63,5 +64,13 @@ public class Atelier {
 
     public ArrayList<Gamme> getListeGammes() {
         return listeGammes;
+    }
+
+    public List<Machine> getAllMachines() {
+        List<Machine> allMachines = new ArrayList<>();
+        for (Poste poste : listePostes) {
+            allMachines.addAll(poste.getListeMachines());
+        }
+        return allMachines;
     }
 }

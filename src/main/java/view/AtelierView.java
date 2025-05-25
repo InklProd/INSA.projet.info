@@ -4,6 +4,7 @@ import controlleur.BoutonMachineControlleur;
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
 import controlleur.CompetenceControlleur;
+import controlleur.MapControlleur;
 import controlleur.PosteOpListeView;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import model.Poste;
 public class AtelierView {
     public Parent getView() {
         Atelier atelier = new Atelier();
+        MapControlleur mapControlleur = new MapControlleur();
 
         Label label = new Label("Bienvenue dans l'atelier !");
 
@@ -90,7 +92,16 @@ public class AtelierView {
         HBox boutonsHaut = new HBox(10, boutonPoste.getButton(), boutonOperateur.getButton());
         boutonsHaut.setStyle("-fx-alignment: center;");
 
-        VBox vbox = new VBox(10, topBar, label, boutonsHaut, centre);
+        // Bouton pour afficher la carte
+        Button btnAfficherCarte = new Button("Afficher la carte");
+        btnAfficherCarte.setOnAction(e -> mapControlleur.afficherCarte(atelier));
+
+        // Barre en bas
+        HBox bottomBar = new HBox();
+        bottomBar.setStyle("-fx-alignment: bottom-right; -fx-padding: 10;");
+        bottomBar.getChildren().add(btnAfficherCarte);
+
+        VBox vbox = new VBox(10, topBar, label, boutonsHaut, centre, bottomBar);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         return vbox;
