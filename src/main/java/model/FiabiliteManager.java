@@ -1,6 +1,5 @@
 package model;
 
-import view.FiabilitéView;
 import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -44,7 +43,6 @@ public class FiabiliteManager {
         }
 
         reader.close();
-        System.out.println("Événements chargés : " + evenements); // Ajoutez ceci après le chargement
     }
 
     public Map<String, Float> calculerFiabilites() {
@@ -69,15 +67,14 @@ public class FiabiliteManager {
             float dureeTotale = 14 * 60;
             fiabilites.put(machine.getRefEquipement(), totalFonctionnement / dureeTotale);
         }
-        System.out.println("Fiabilités calculées (dans FiabiliteManager) : " + fiabilites); // Ajoutez ceci juste avant le return
         return fiabilites;
     }
 
     public void afficherClassement(Map<String, Float> fiabilites) {
         fiabilites.entrySet().stream()
             .sorted(Map.Entry.<String, Float>comparingByValue().reversed())
-            .forEach(entry -> System.out.println("Machine: " + entry.getKey() +
-                    " | Fiabilité: " + String.format("%.2f", entry.getValue())));
+            .forEach(entry -> {
+            });
     }
 }
 
