@@ -38,11 +38,5 @@ public class GammeControlleur {
             // Rafraîchir le champ après modification
             refField.setText(gamme.getRefGamme());
         });
-        // Rafraîchit automatiquement le champ si la valeur change ailleurs
-        refField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.equals(gamme.getRefGamme())) {
-                gamme.setRefGamme(newVal);
-            }
-        });
     }
 }
