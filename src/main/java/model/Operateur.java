@@ -41,6 +41,8 @@ public class Operateur {
     public void setPrenom(String prenom) { this.prenom = prenom; }
     public String[] getCompetences() { return competences; }
     public void setCompetences(String[] competences) { this.competences = competences; }
+    public String getCode() { return code; }
+    
     public void ajouterCompetence(String competence) {
         if (competence == null || competence.isEmpty()) return;
         java.util.List<String> list = new java.util.ArrayList<>(java.util.Arrays.asList(competences));

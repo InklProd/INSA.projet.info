@@ -4,8 +4,10 @@ import controlleur.BoutonMachineControlleur;
 import controlleur.BoutonOperateurController;
 import controlleur.BoutonPosteController;
 import controlleur.CompetenceControlleur;
+import controlleur.EventMaintenanceControlleur;
 import controlleur.MapControlleur;
 import controlleur.PosteOpListeView;
+import controlleur.SuivitMaintenanceControlleur;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,16 +21,27 @@ import model.Poste;
 public class AtelierView {
     public Parent getView() {
         Atelier atelier = new Atelier();
+        EventMaintenanceControlleur eventMaintenanceControlleur = new EventMaintenanceControlleur(atelier);
         MapControlleur mapControlleur = new MapControlleur();
+        SuivitMaintenanceControlleur suivitMaintenanceControlleur = new SuivitMaintenanceControlleur();
 
         Label label = new Label("Bienvenue dans l'atelier !");
 
         // Bouton en haut à gauche
         Button btnListeGammes = new Button("Afficher la liste des gammes");
         btnListeGammes.setOnAction(e -> new ListeGammeView(atelier).show());
+
+        // Bouton en haut à droite pour créer un événement maintenance
+        Button btnCreerEvenement = new Button("Créer Événement Maintenance");
+        btnCreerEvenement.setOnAction(e -> eventMaintenanceControlleur.lancerFenetreCreation());
+
+        // Bouton pour lancer FiabilitéManager
+        Button btnFiabilite = suivitMaintenanceControlleur.creerBoutonAfficherFiabilite();
+
+        // Barre supérieure
         HBox topBar = new HBox();
-        topBar.setStyle("-fx-alignment: top-left; -fx-padding: 10;");
-        topBar.getChildren().add(btnListeGammes);
+        topBar.setStyle("-fx-alignment: top-left; -fx-padding: 10; -fx-spacing: 20;");
+        topBar.getChildren().addAll(btnListeGammes, btnCreerEvenement, btnFiabilite);
 
         ListView<Object> listView = new ListView<>();
         ListView<String> machineListView = new ListView<>();
@@ -64,7 +77,7 @@ public class AtelierView {
             atelier, listView, creerMachineBtn, supprimerMachineBtn, machineListView
         );
 
-        // Ajout du contrôleur de compétences
+
         CompetenceControlleur competenceControlleur = new CompetenceControlleur();
         VBox vboxCompetence = competenceControlleur.getView();
         vboxCompetence.setVisible(false);
@@ -78,7 +91,6 @@ public class AtelierView {
             if (!isPoste) {
                 machineListView.getItems().clear();
             }
-            // Affichage dynamique de la zone compétence
             if (isOperateur) {
                 competenceControlleur.setOperateur((Operateur) newVal);
             } else {

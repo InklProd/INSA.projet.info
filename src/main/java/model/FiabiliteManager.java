@@ -1,5 +1,6 @@
 package model;
 
+import view.FiabilitéView;
 import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +9,7 @@ import java.util.*;
 public class FiabiliteManager {
     private ArrayList<EvenementMaintenance> evenements = new ArrayList<>();
     private Map<String, Machine> machines = new HashMap<>();
+    private Map<String, Float> fiabilites = new HashMap<>();
 
     public void ajouterMachine(Machine machine) {
         machines.put(machine.getRefEquipement(), machine);
@@ -21,11 +23,11 @@ public class FiabiliteManager {
         while ((ligne = reader.readLine()) != null) {
             if (ligne.trim().equals("") || ligne.startsWith("End Of File")) continue;
 
-            String[] tokens = ligne.trim().split("\\s+");
+            String[] tokens = ligne.trim().split(";");
             if (tokens.length < 6) continue;
 
             String dateStr = tokens[0];
-            String heureStr = tokens[1].replace(":", "");
+            String heureStr = tokens[1];
             String refMachine = tokens[2];
             String typeEvt = tokens[3];
             String operateur = tokens[4];
@@ -34,7 +36,7 @@ public class FiabiliteManager {
             LocalDateTime dateHeure = LocalDateTime.parse(dateStr + " " + heureStr, formatter);
             Machine machine = machines.get(refMachine);
             if (machine == null) {
-                machine = new Machine(refMachine, "", "", 0, 0, 0); // Dummy if not found
+                machine = new Machine(refMachine, "", "", 0, 0, 0);
                 machines.put(refMachine, machine);
             }
             EvenementMaintenance evt = new EvenementMaintenance(dateHeure, machine, typeEvt, operateur, cause);
@@ -42,24 +44,19 @@ public class FiabiliteManager {
         }
 
         reader.close();
+        System.out.println("Événements chargés : " + evenements); // Ajoutez ceci après le chargement
     }
 
     public Map<String, Float> calculerFiabilites() {
         Map<Machine, List<EvenementMaintenance>> mapParMachine = new HashMap<>();
-
         for (EvenementMaintenance e : evenements) {
             mapParMachine.computeIfAbsent(e.getMachine(), k -> new ArrayList<>()).add(e);
         }
-
-        Map<String, Float> fiabilites = new HashMap<>();
-
         for (Machine machine : mapParMachine.keySet()) {
             List<EvenementMaintenance> liste = mapParMachine.get(machine);
             liste.sort(Comparator.comparing(EvenementMaintenance::getDateHeure));
-
             float totalFonctionnement = 0;
             LocalDateTime dernierDebut = null;
-
             for (EvenementMaintenance e : liste) {
                 if (e.getTypeEvenement().equals("A")) {
                     dernierDebut = e.getDateHeure();
@@ -69,11 +66,10 @@ public class FiabiliteManager {
                     dernierDebut = null;
                 }
             }
-
-            float dureeTotale = 14 * 60; // 14h par jour en minutes
+            float dureeTotale = 14 * 60;
             fiabilites.put(machine.getRefEquipement(), totalFonctionnement / dureeTotale);
         }
-
+        System.out.println("Fiabilités calculées (dans FiabiliteManager) : " + fiabilites); // Ajoutez ceci juste avant le return
         return fiabilites;
     }
 
@@ -84,3 +80,4 @@ public class FiabiliteManager {
                     " | Fiabilité: " + String.format("%.2f", entry.getValue())));
     }
 }
+
