@@ -26,8 +26,8 @@ public class BoutonPosteController {
             actionsAjoutees = false;
 
             if (!actionsAjoutees) {
-                Button action1 = new Button("creer poste");
-                Button action2 = new Button("suprimer poste");
+                Button action1 = new Button("Créer poste");
+                Button action2 = new Button("Supprimer poste");
 
                 action1.setOnAction(ev -> {
                     CreerPosteView fenetre = new CreerPosteView(posteCree -> {
